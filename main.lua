@@ -1,34 +1,31 @@
 local Gamestate = require "hump.gamestate"
 
-local lg = love.graphics
-
-local menu = {}
 local game = {}
+local lg = love.graphics
+local isDown = love.keyboard.isDown
 
-function menu:draw()
-    love.graphics.print("Press Enter to continue", 10, 10)
-end
-
-function menu:keyreleased(key, code)
-    if key == 'return' then
-        Gamestate.switch(game)
-    end
-end
-
-function game:enter()
-    --Entities.clear()
-    -- setup entities here
-end
-
-function game:update(dt)
-    --Entities.update(dt)
-end
-
-function game:draw()
-    --Entities.draw()
-end
+player = {x = 0, y = 0, w = 10, h = 10, speed = 300}
 
 function love.load()
     Gamestate.registerEvents()
-    Gamestate.switch(menu)
+    Gamestate.switch(game)
+end
+
+function game:update(dt)
+	if isDown("up") then
+		player.y = player.y - player.speed * dt
+	end
+	if isDown("down") then
+		player.y = player.y + player.speed * dt
+	end
+	if isDown("left") then
+		player.x = player.x - player.speed * dt
+	end
+	if isDown("right") then
+		player.x = player.x + player.speed * dt
+	end
+end
+
+function game:draw()
+    lg.rectangle("fill", player.x, player.y, player.w, player.h)
 end
