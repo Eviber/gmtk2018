@@ -21,7 +21,7 @@ end
 local Vector = require "hump.vector"
 local Class = require "hump.class"
 local lg = love.graphics
-local db = require "debug"
+local debug = require "debug"
 
 map_utils = {}
 
@@ -32,14 +32,15 @@ tileset = {
 
 Tile = Class{
 	tilesize = 16,
-	init = function(self, x, y, tile_img)
+	init = function(self, x, y, enumstr, tile_img)
 		self.indices = Vector.new(x, y)
-		self.pos = Vector.new((x - 1) * tilesize, (y - 1) * tilesize)
+		self.pos = Vector.new((x - 1) * self.tilesize, (y - 1) * self.tilesize)
+    self.enumstr = enumstr
 		self.img = tile_img
 	end
 }
 
-function Tile:draw(canvas_data)
+function Tile:draw()
 	lg.draw(self.img, self.pos.x, self.pos.y)
 end
 
@@ -54,29 +55,33 @@ Map = Class{
 function Map:draw()
 	for _, tileline in pairs(self.tilemap) do
     for _, tile in pairs(tileline) do
-      tile.draw()
+      tile:draw()
     end
 	end
 end
 
 function map_utils.strls_to_map(w, h, strls_map)
+  print("map width "..w..", height "..h)
 	local tilemap = {}
 	for y, tiles in pairs(strls_map) do
     local tileline = {}
 		for x = 1, #tiles do
-			tilechar = tiles[x]
+			local tilechar = tiles:sub(x,x)
+      local curtile
 			if tilechar == '-' then
-				table.insert(tileline, Tile(x, y, tileset.floor))
+        curtile = Tile(x, y, "floor", tileset.floor)
 			elseif tilechar == "X" then
-				table.insert(tileline, Tile(x, y, tileset.wall))
+				curtile = Tile(x, y, "wall", tileset.wall)
+      else
+        curtile = Tile(-1, -1, "error", nil)
 			end
+      table.insert(tileline, curtile)
 		end
     table.insert(tilemap, tileline)
 	end
 	assert(w == string.len(strls_map[1]) and h == #strls_map, "Incoherent map_strls: "..w.."?="..string.len(strls_map[1]).."  "..h.."?="..#strls_map)
 	map = Map(w, h, tilemap)
-  db.print_table(map.tilemap[1])
-	return map
+  return map
 end
 
 return map_utils
