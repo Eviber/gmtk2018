@@ -18,7 +18,11 @@ Player = Class{
 		self.speed = 100
 	end,
 	draw = function(self)
+		lg.setColor(1,1,1,1)
 		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
+	end,
+	update = function(self, dt)
+		self:move(dt)
 	end
 }
 

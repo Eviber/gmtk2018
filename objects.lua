@@ -20,17 +20,16 @@ Entity = Class{
 	normalize = function(self)
 		local dx, dy = self.dx, self.dy
 		local norm = math.sqrt(dx^2 + dy^2)
-		if norm > self.speed then
-			self.dx = dx / norm * self.speed
-			self.dy = dy / norm * self.speed
-		end
-	end
+		self.dx = dx / norm * self.speed
+		self.dy = dy / norm * self.speed
+	end,
 	update = function(self, dt)
 		if self.health <= 0 then
 			print("Argh!")
+			table.remove(EntitiesList, self)
 		end
-		self.x = self.dx * dt
-		self.y = self.dy * dt
+		self.x = self.x + self.dx * dt
+		self.y = self.y + self.dy * dt
 	end,
 	draw = function(self)
 		lg.setColor(1,1,1,1)
@@ -38,42 +37,7 @@ Entity = Class{
 	end
 }
 
-RifleShooter = Class{
-	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 20, 50)
-	end,
-	attack = function(self)
-		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
-	end,
-	draw = function(self)
-		lg.setColor(0,1,1,1)
-		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
-	end
-}
-
-Projectile = Class{
-	__includes = Entity,
-	init = function(self, id, x, y, dx, dy, speed, damage)
-		Entity.init(self, id, x, y, speed, 1)
-		self.damage = damage
-		self.dx = dx
-		self.dy = dy
-		self.normalize()
-	end
-}
-
-Bullet = Class{
-	__includes = Projectile,
-	init = function(self, id, x, y, dx, dy)
-		Projectile.init(self, id, x, y, dx, dy, 70, 20)
-		--bullet sprite
-	end
-	draw = function(self)
-		lg.setColor(1,0,0,1)
-		lg.circle("fill", self.x, self.y, 8)
-	end
-}
+require "shooter"
 
 Brawler = Class{
 	__includes = Entity,
