@@ -28,7 +28,6 @@ Projectile = Class{
 		self.dx = dx
 		self.dy = dy
 		self:normalize()
-		print(self.dx, self.dy)
 	end
 }
 
