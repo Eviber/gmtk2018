@@ -24,10 +24,13 @@ Player = Class{
 	draw = function(self)
 		lg.setColor(1,1,1,1)
 		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
+		lg.setColor(0,1,0,1)
+		lg.rectangle("line", coll:getRect(self))
 	end,
 	update = function(self, dt)
 		self:setVel(dt)
-		self.x, self.y = coll:move(self, self.x + self.dx, self.y + self.dy, filter)
+		self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)
+		self.x = self.x + 8
 	end
 }
 
