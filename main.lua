@@ -1,6 +1,7 @@
 local Gamestate = require "hump.gamestate"
 local map_utils = require "map_utils"
 require "objects"
+require "brawler"
 
 gs = {}
 gs.game = {}
@@ -35,8 +36,7 @@ function love.load()
 	player = Player()
 	testEnemy = RifleShooter(1, 100, 100)
 	yourDumb = RifleShooter(2, 200, 100)
-
-	
+	iHitYou = Brawler(3, 300, 100)
 
   map = map_utils.strls_to_map(80, 60,
   {
