@@ -1,20 +1,26 @@
+
 local Vector = require "hump.vector"
+require "collide"
+
 lg = love.graphics
 local isDown = love.keyboard.isDown
 local floor = math.floor
 
 Player = Class{
 	__includes = Entity,
-	init = function(self, id, x, y, health, speed)
+	init = function(self, id, x, y)
+		x = x or W/2
+		y = y or H/2
 		Entity.init(self, id, x, y)
-		self.health = health
-		self.speed = speed
+		self.health = 100
+		self.speed = 100
 		self.dx = 0
 		self.dy = 0
-    self.hitbox_pos = Vector.new(x - 4, y - 12) 
-    self.hitbox_end = Vector.new(self.hitbox_pos.x + 16, self.hitbox_pos.y + 16)
+    --self.hitbox_pos = Vector.new(x - 4, y - 12) 
+    --self.hitbox_end = Vector.new(self.hitbox_pos.x + 16, self.hitbox_pos.y + 16)
     self.grid_pos = Vector.new(floor(self.x / 16), floor(self.y / 16))
 		self:loadSprite()
+		coll:update(self, x, y)
 	end,
   
 	reset = function(self)
@@ -25,30 +31,14 @@ Player = Class{
 	end,
   
 	draw = function(self)
+		lg.setColor(1,1,1,1)
 		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
 	end,
   
-  wall_collide_check = function(self)
-    --self.grid_pos.x = self.x / 16 
-    --self.grid_pos.y = self.y / 16
-    --local tmp = Vector.new(floor((self.x + self.dx) / 16), floor((self.y + self.dy) / 16))
-    local tiles = map.tilemap
-    
-    if floor((self.hitbox_end.x + self.dx) / 16) > self.grid_pos.x
-    and tiles[self.grid_pos.y][self.grid_pos.x + 1].enumstr == "wall" then --moved a tile to the right
-      self.dx = 0
-      tiles[self.grid_pos.y][self.grid_pos.x + 1] = Tile(self.grid_pos.x + 1, self.grid_pos.y, "error", tileset.error) 
-    elseif floor((self.hitbox_pos.x + self.dx) / 16) < self.grid_pos.x
-    and tiles[self.grid_pos.y][self.grid_pos.x - 1].enumstr == "wall" then --moved a tile to the left
-      self.dx = 0
-    elseif floor((self.hitbox_end.y + self.dy) / 16) > self.grid_pos.y
-    and tiles[self.grid_pos.y + 1][self.grid_pos.x].enumstr == "wall" then
-      self.dy = 0
-    elseif floor((self.hitbox_pos.y + self.dy) / 16) < self.grid_pos.y
-    and tiles[self.grid_pos.y - 1][self.grid_pos.x].enumstr == "wall" then
-      self.dy = 0
-    end
-  end
+	update = function(self, dt)
+		self:setVel(dt)
+		self.x, self.y = coll:move(self, self.x + self.dx, self.y + self.dy, filter)
+	end
 }
 
 function Player:loadSprite()
@@ -79,7 +69,7 @@ function Player:swap(target)
 	--smoke thingy
 end
 
-function Player:move(dt)
+function Player:setVel(dt)
 	local p = self
 	local up = isDown("up")
 	local down = isDown("down")
@@ -118,9 +108,4 @@ function Player:move(dt)
 			p.dy = dy / norm * max
 		end
 	end
-  p:wall_collide_check()
-	p.x = p.x + p.dx
-	p.y = p.y + p.dy
-  p.grid_pos.x = floor(self.x / 16)
-  p.grid_pos.y = floor(self.y / 16)
 end

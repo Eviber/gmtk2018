@@ -1,5 +1,6 @@
 Class = require "hump.class"
 local lg = love.graphics
+require "collide"
 
 EntitiesList = {}
 
@@ -13,6 +14,7 @@ Entity = Class{
 		self.speed = speed
 		self.health = health
 		table.insert(EntitiesList, self)
+		coll:add(self, x, y, 16, 16)
 	end,
 	destroy = function(self)
 		table.remove(EntitiesList, self.id)
@@ -20,20 +22,17 @@ Entity = Class{
 	normalize = function(self)
 		local dx, dy = self.dx, self.dy
 		local norm = math.sqrt(dx^2 + dy^2)
-		if norm > self.speed then
-			self.dx = dx / norm * self.speed
-			self.dy = dy / norm * self.speed
-		end
-	end
-}
-
-RifleShooter = Class{
-	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 20, 50)
+		self.dx = dx / norm * self.speed
+		self.dy = dy / norm * self.speed
 	end,
-	attack = function(self)
-		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
+	update = function(self, dt)
+		if self.health <= 0 then
+			print("Argh!")
+			table.remove(EntitiesList, self)
+			coll:remove(self)
+		end
+		print(filter)
+		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 	end,
 	draw = function(self)
 		lg.setColor(1,1,1,1)
@@ -41,32 +40,9 @@ RifleShooter = Class{
 	end
 }
 
-Projectile = Class{
-	__includes = Entity,
-	init = function(self, id, x, y, dx, dy, speed, damage)
-		Entity.init(self, id, x, y, speed, 1)
-		self.damage = damage
-		self.dx = dx
-		self.dy = dy
-		self.normalize()
-	end
-}
+require "brawler"
 
-Bullet = Class{
-	__includes = Projectile,
-	init = function(self, id, x, y, dx, dy)
-		Projectile.init(self, id, x, y, dx, dy, 70, 20)
-		--bullet sprite
-	end
-}
-
-Brawler = Class{
-	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 50, 50)
-		self.damage = 20
-	end
-}
+require "shooter"
 
 require "player"
 

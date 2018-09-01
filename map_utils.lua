@@ -21,14 +21,15 @@ end
 local Vector = require "hump.vector"
 local Class = require "hump.class"
 local lg = love.graphics
-local debug = require "debug"
+require "collide"
+--local debug = require "debug"
 
 map_utils = {}
 
 tileset = {
 	wall = lg.newImage("assets/tmp/tmp_wall.png"),
 	floor = lg.newImage("assets/tmp/tmp_floor.png"),
-  error = lg.newImage("assets/tmp/tmp_error.png")
+  err = lg.newImage("assets/tmp/tmp_error.png")
 }
 
 Tile = Class{
@@ -38,6 +39,11 @@ Tile = Class{
 		self.pos = Vector.new((x - 1) * self.tilesize, (y - 1) * self.tilesize)
     self.enumstr = enumstr
 		self.img = tile_img
+    if enumstr == "wall" then
+      coll:add(self, self.pos.x, self.pos.y, self.tilesize, self.tilesize)
+    elseif enumstr == "err" then
+      coll:add(self, self.pos.x + 8, self.pos.y, self.tilesize, self.tilesize)
+    end
 	end
 }
 
@@ -54,6 +60,7 @@ Map = Class{
 }
 
 function Map:draw()
+	lg.setColor(1,1,1,1)
 	for _, tileline in pairs(self.tilemap) do
     for _, tile in pairs(tileline) do
       tile:draw()
@@ -74,7 +81,7 @@ function map_utils.strls_to_map(w, h, strls_map)
 			elseif tilechar == "X" then
 				curtile = Tile(x, y, "wall", tileset.wall)
       else
-        curtile = Tile(-1, -1, "error", tileset.error)
+        curtile = Tile(x, y, "err", tileset.err)
 			end
       table.insert(tileline, curtile)
 		end
