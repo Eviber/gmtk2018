@@ -22,6 +22,10 @@ RifleShooter = Class{
 			self:attack()
 			self.cd = 2 + self.cd
 		end
+		if self.health <= 0 then
+			table.remove(EntitiesList, self.idx)
+			coll:remove(self)
+		end
 	end
 }
 
