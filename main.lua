@@ -1,4 +1,5 @@
 local Gamestate = require "hump.gamestate"
+bump = require "bump/bump"
 local map_utils = require "map_utils"
 require "objects"
 
@@ -12,26 +13,12 @@ local game = gs.game
 local lg = love.graphics
 local isDown = love.keyboard.isDown
 
-function loadSprite()
-	image = lg.newImage("sprite.png")
-	local width = image:getWidth()
-	local height = image:getHeight()
-	local frameW = 24
-	local frameH = 32
-
-	frames = {}
-	for i=0,4 do
-		table.insert(frames, lg.newQuad(1 + i*frameW + i, 1, frameW, frameH, width, height))
-	end
-	currentFrame = 1
-	dir = 1
-end
-
 function love.load()
 	W, H = 800, 600
   love.window.setMode(W, H, {resizable = false})
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)
+	coll = bump.newWorld()
 	player = Player()
 	testEnemy = RifleShooter(1, 100, 100)
 	yourDumb = RifleShooter(2, 200, 100)

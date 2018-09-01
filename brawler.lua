@@ -6,7 +6,7 @@ Brawler = Class{
 		self.cooldown = 3
 	end,
 	attack = function(self)
-		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
+		Bullet(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
 	end,
 	draw = function(self)
 		lg.setColor(1,0,1,1)
@@ -26,8 +26,7 @@ Brawler = Class{
 			self.dx = player.x - self.x
 			self.dy = player.y - self.y
 			self:normalize()
-			self.x = self.x + self.dx * dt
-			self.y = self.y + self.dy * dt
+			self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt)
 		end
 	end
 }

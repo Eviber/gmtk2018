@@ -13,6 +13,7 @@ Entity = Class{
 		self.speed = speed
 		self.health = health
 		table.insert(EntitiesList, self)
+		coll:add(self, x, y, 16, 16)
 	end,
 	destroy = function(self)
 		table.remove(EntitiesList, self.id)
@@ -27,9 +28,9 @@ Entity = Class{
 		if self.health <= 0 then
 			print("Argh!")
 			table.remove(EntitiesList, self)
+			coll:remove(self)
 		end
-		self.x = self.x + self.dx * dt
-		self.y = self.y + self.dy * dt
+		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt)
 	end,
 	draw = function(self)
 		lg.setColor(1,1,1,1)

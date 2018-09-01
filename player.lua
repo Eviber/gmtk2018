@@ -3,13 +3,16 @@ local isDown = love.keyboard.isDown
 
 Player = Class{
 	__includes = Entity,
-	init = function(self, id, x, y, health, speed)
+	init = function(self, id, x, y)
+		x = x or W/2
+		y = y or H/2
 		Entity.init(self, id, x, y)
-		self.health = health
-		self.speed = speed
+		self.health = 100
+		self.speed = 100
 		self.dx = 0
 		self.dy = 0
 		self:loadSprite()
+		coll:update(self, x-8, y)
 	end,
 	reset = function(self)
 		self.x = W/2
@@ -22,7 +25,8 @@ Player = Class{
 		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
 	end,
 	update = function(self, dt)
-		self:move(dt)
+		self:setVel(dt)
+		self.x, self.y = coll:move(self, self.x + self.dx, self.y + self.dy)
 	end
 }
 
@@ -54,7 +58,7 @@ function Player:swap(target)
 	--smoke thingy
 end
 
-function Player:move(dt)
+function Player:setVel(dt)
 	local p = self
 	local up = isDown("up")
 	local down = isDown("down")
@@ -93,6 +97,4 @@ function Player:move(dt)
 			p.dy = dy / norm * max
 		end
 	end
-	p.x = p.x + p.dx
-	p.y = p.y + p.dy
 end
