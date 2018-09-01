@@ -8,7 +8,7 @@ Entity = Class{
 		self.id = id
 		self.x = x
 		self.y = y
-		table.insert(EntitiesList, id)
+		table.insert(EntitiesList, self)
 	end,
 	destroy = function(self)
 		table.remove(EntitiesList, self.id)
@@ -29,8 +29,12 @@ RifleShooter = Class{
 	init = function(self, id, x, y)
 		Enemy.init(self, id, x, y, 3, 10)
 	end,
-	attack = function(x, y)
+	attack = function(self, x, y)
 		Bullet:init(table.getn(EntitiesList), x, y, 6, 10)
+	end,
+	draw = function(self)
+		lg.setColor(1,1,1,1)
+		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
 	end
 }
 
