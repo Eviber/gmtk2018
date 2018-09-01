@@ -24,13 +24,13 @@ Entity = Class{
 			self.dx = dx / norm * self.speed
 			self.dy = dy / norm * self.speed
 		end
-	end
+	end,
 	update = function(self, dt)
 		if self.health <= 0 then
 			print("Argh!")
 		end
-		self.x = self.dx * dt
-		self.y = self.dy * dt
+		self.x = self.x + self.dx * dt
+		self.y = self.y + self.dy * dt
 	end,
 	draw = function(self)
 		lg.setColor(1,1,1,1)
@@ -59,7 +59,7 @@ Projectile = Class{
 		self.damage = damage
 		self.dx = dx
 		self.dy = dy
-		self.normalize()
+		self:normalize()
 	end
 }
 
@@ -71,22 +71,7 @@ Bullet = Class{
 	end
 }
 
-Brawler = Class{
-	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 50, 50)
-		self.damage = 20
-	end,
-	attack = function(self)
-		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
-	end,
-	draw = function(self)
-		lg.setColor(1,0,1,1)
-		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
-	end
-	--update = function(self, dt)
-		
-}
+
 
 require "player"
 

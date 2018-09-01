@@ -53,6 +53,7 @@ Map = Class{
 }
 
 function Map:draw()
+	lg.setColor(1,1,1,1)
 	for _, tileline in pairs(self.tilemap) do
     for _, tile in pairs(tileline) do
       tile:draw()
