@@ -1,5 +1,7 @@
+local Vector = require "hump.vector"
 lg = love.graphics
 local isDown = love.keyboard.isDown
+local floor = math.floor
 
 Player = Class{
 	__includes = Entity,
@@ -9,17 +11,44 @@ Player = Class{
 		self.speed = speed
 		self.dx = 0
 		self.dy = 0
+    self.hitbox_pos = Vector.new(x - 4, y - 12) 
+    self.hitbox_end = Vector.new(self.hitbox_pos.x + 16, self.hitbox_pos.y + 16)
+    self.grid_pos = Vector.new(floor(self.x / 16), floor(self.y / 16))
 		self:loadSprite()
 	end,
+  
 	reset = function(self)
 		self.x = W/2
 		self.y = H/2
 		self.health = 100
 		self.speed = 100
 	end,
+  
 	draw = function(self)
 		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
-	end
+	end,
+  
+  wall_collide_check = function(self)
+    --self.grid_pos.x = self.x / 16 
+    --self.grid_pos.y = self.y / 16
+    --local tmp = Vector.new(floor((self.x + self.dx) / 16), floor((self.y + self.dy) / 16))
+    local tiles = map.tilemap
+    
+    if floor((self.hitbox_end.x + self.dx) / 16) > self.grid_pos.x
+    and tiles[self.grid_pos.y][self.grid_pos.x + 1].enumstr == "wall" then --moved a tile to the right
+      self.dx = 0
+      tiles[self.grid_pos.y][self.grid_pos.x + 1] = Tile(self.grid_pos.x + 1, self.grid_pos.y, "error", tileset.error) 
+    elseif floor((self.hitbox_pos.x + self.dx) / 16) < self.grid_pos.x
+    and tiles[self.grid_pos.y][self.grid_pos.x - 1].enumstr == "wall" then --moved a tile to the left
+      self.dx = 0
+    elseif floor((self.hitbox_end.y + self.dy) / 16) > self.grid_pos.y
+    and tiles[self.grid_pos.y + 1][self.grid_pos.x].enumstr == "wall" then
+      self.dy = 0
+    elseif floor((self.hitbox_pos.y + self.dy) / 16) < self.grid_pos.y
+    and tiles[self.grid_pos.y - 1][self.grid_pos.x].enumstr == "wall" then
+      self.dy = 0
+    end
+  end
 }
 
 function Player:loadSprite()
@@ -89,6 +118,9 @@ function Player:move(dt)
 			p.dy = dy / norm * max
 		end
 	end
+  p:wall_collide_check()
 	p.x = p.x + p.dx
 	p.y = p.y + p.dy
+  p.grid_pos.x = floor(self.x / 16)
+  p.grid_pos.y = floor(self.y / 16)
 end

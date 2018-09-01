@@ -27,7 +27,8 @@ map_utils = {}
 
 tileset = {
 	wall = lg.newImage("assets/tmp/tmp_wall.png"),
-	floor = lg.newImage("assets/tmp/tmp_floor.png")
+	floor = lg.newImage("assets/tmp/tmp_floor.png"),
+  error = lg.newImage("assets/tmp/tmp_error.png")
 }
 
 Tile = Class{
@@ -73,7 +74,7 @@ function map_utils.strls_to_map(w, h, strls_map)
 			elseif tilechar == "X" then
 				curtile = Tile(x, y, "wall", tileset.wall)
       else
-        curtile = Tile(-1, -1, "error", nil)
+        curtile = Tile(-1, -1, "error", tileset.error)
 			end
       table.insert(tileline, curtile)
 		end

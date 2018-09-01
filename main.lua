@@ -32,7 +32,7 @@ function love.load()
   love.window.setMode(W, H, {resizable = false})
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)
-	player = Player()
+	player = Player(1, W/2, H/2, 100, 100)
 	testEnemy = RifleShooter(1, 100, 100)
 	yourDumb = RifleShooter(2, 200, 100)
 	
