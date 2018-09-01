@@ -31,6 +31,10 @@ Entity = Class{
 		end
 		self.x = self.dx * dt
 		self.y = self.dy * dt
+	end,
+	draw = function(self)
+		lg.setColor(1,1,1,1)
+		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
 	end
 }
 
@@ -43,7 +47,7 @@ RifleShooter = Class{
 		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
 	end,
 	draw = function(self)
-		lg.setColor(1,1,1,1)
+		lg.setColor(0,1,1,1)
 		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
 	end
 }
@@ -76,7 +80,16 @@ Brawler = Class{
 	init = function(self, id, x, y)
 		Entity.init(self, id, x, y, 50, 50)
 		self.damage = 20
+	end,
+	attack = function(self)
+		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
+	end,
+	draw = function(self)
+		lg.setColor(1,0,1,1)
+		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
 	end
+	--update = function(self, dt)
+		
 }
 
 require "player"
