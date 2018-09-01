@@ -37,6 +37,8 @@ Entity = Class{
 	end
 }
 
+require "brawler"
+
 require "shooter"
 
 require "player"

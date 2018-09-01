@@ -1,7 +1,6 @@
 local Gamestate = require "hump.gamestate"
 local map_utils = require "map_utils"
 require "objects"
-require "brawler"
 
 gs = {}
 gs.game = {}
