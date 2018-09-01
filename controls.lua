@@ -11,7 +11,7 @@ function gs.game:mousepressed(x, y, button, istouch, presses)
 		end
 	end
 	print(closest)
-	if closest ~= nil then
+	if closest ~= nil and closest ~= player then
 		player:swap(closest)
 	end
 end
