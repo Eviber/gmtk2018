@@ -33,6 +33,20 @@ Projectile = Class{
 		self.dx = dx
 		self.dy = dy
 		self:normalize()
+	end,
+	update = function(self, dt)
+		self.x, self.y, cols, len = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
+		if len > 0 then
+			self.health = 0
+			cols[1].other.health = cols[1].other.health - self.damage
+		end
+		if self.x < 0 or self.x > W or self.y < 0 or self.y > H then
+			self.health = 0
+		end
+		if self.health <= 0 then
+			table.remove(EntitiesList, self.idx)
+			coll:remove(self)
+		end
 	end
 }
 

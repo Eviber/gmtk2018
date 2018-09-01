@@ -7,6 +7,7 @@ EntitiesList = {}
 Entity = Class{
 	init = function(self, id, x, y, speed, health)
 		self.id = id
+		self.idx = #EntitiesList + 1
 		self.x = x
 		self.y = y
 		self.dx = 0
@@ -31,7 +32,6 @@ Entity = Class{
 			table.remove(EntitiesList, self)
 			coll:remove(self)
 		end
-		print(filter)
 		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 	end,
 	draw = function(self)
