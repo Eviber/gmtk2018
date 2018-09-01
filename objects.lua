@@ -65,6 +65,10 @@ Bullet = Class{
 		Projectile.init(self, id, x, y, dx, dy, 70, 20)
 		--bullet sprite
 	end
+	draw = function(self)
+		lg.setColor(1,0,0,1)
+		lg.circle("fill", self.x, self.y, 8)
+	end
 }
 
 Brawler = Class{
