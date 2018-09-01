@@ -4,6 +4,7 @@ require "objects"
 
 gs = {}
 gs.game = {}
+require "controls"
 
 require "startend"
 
@@ -32,6 +33,10 @@ function love.load()
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)
 	player = Player()
+	testEnemy = RifleShooter(1, 100, 100)
+	yourDumb = RifleShooter(2, 200, 100)
+	
+
   map = map_utils.strls_to_map(80, 60,
   {
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -96,8 +101,8 @@ function love.load()
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     }
   )
-	loadSprite()
-end
+end  
+
 
 function game:enter()
 	player:reset()
@@ -113,4 +118,7 @@ end
 function game:draw()
   map:draw()
 	player:draw()
+	for i, entity in pairs(EntitiesList) do
+		entity:draw()
+	end
 end

@@ -12,11 +12,11 @@ Entity = Class{
 		self.dy = 0
 		self.speed = speed
 		self.health = health
-		table.insert(EntitiesList, id)
+		table.insert(EntitiesList, self)
 	end,
 	destroy = function(self)
 		table.remove(EntitiesList, self.id)
-	end
+	end,
 	normalize = function(self)
 		local dx, dy = self.dx, self.dy
 		local norm = math.sqrt(dx^2 + dy^2)
@@ -31,9 +31,13 @@ RifleShooter = Class{
 	__includes = Entity,
 	init = function(self, id, x, y)
 		Entity.init(self, id, x, y, 20, 50)
-	end
-	attack = function(x, y)
+	end,
+	attack = function(self)
 		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
+	end,
+	draw = function(self)
+		lg.setColor(1,1,1,1)
+		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
 	end
 }
 

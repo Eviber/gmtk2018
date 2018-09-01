@@ -75,7 +75,6 @@ function map_utils.strls_to_map(w, h, strls_map)
 	end
 	assert(w == string.len(strls_map[1]) and h == #strls_map, "Incoherent map_strls: "..w.."?="..string.len(strls_map[1]).."  "..h.."?="..#strls_map)
 	map = Map(w, h, tilemap)
-  db.print_table(map.tilemap[1])
 	return map
 end
 
