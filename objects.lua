@@ -25,6 +25,13 @@ Entity = Class{
 			self.dy = dy / norm * self.speed
 		end
 	end
+	update = function(self, dt)
+		if self.health <= 0 then
+			print("Argh!")
+		end
+		self.x = self.dx * dt
+		self.y = self.dy * dt
+	end
 }
 
 RifleShooter = Class{
