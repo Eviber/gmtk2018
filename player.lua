@@ -1,6 +1,10 @@
+
+local Vector = require "hump.vector"
 require "collide"
+
 lg = love.graphics
 local isDown = love.keyboard.isDown
+local floor = math.floor
 
 Player = Class{
 	__includes = Entity,
@@ -12,21 +16,27 @@ Player = Class{
 		self.speed = 100
 		self.dx = 0
 		self.dy = 0
+    --self.hitbox_pos = Vector.new(x - 4, y - 12) 
+    --self.hitbox_end = Vector.new(self.hitbox_pos.x + 16, self.hitbox_pos.y + 16)
+    self.grid_pos = Vector.new(floor(self.x / 16), floor(self.y / 16))
 		self:loadSprite()
-		coll:update(self, x-8, y)
+		coll:update(self, x, y)
 	end,
+  
 	reset = function(self)
 		self.x = W/2
 		self.y = H/2
 		self.health = 100
 		self.speed = 100
 	end,
+  
 	draw = function(self)
 		lg.setColor(1,1,1,1)
 		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
 		lg.setColor(0,1,0,1)
 		lg.rectangle("line", coll:getRect(self))
 	end,
+  
 	update = function(self, dt)
 		self:setVel(dt)
 		self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)

@@ -42,7 +42,12 @@ Projectile = Class{
 		self.x, self.y, cols, len = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 		if len > 0 then
 			self.health = 0
-			cols[1].other.health = cols[1].other.health - self.damage
+      print(cols)
+      print(cols[1])
+      print(cols[1].other)
+      if cols[1].other.health then
+        cols[1].other.health = cols[1].other.health - self.damage
+      end
 		end
 		if self.x < 0 or self.x > W or self.y < 0 or self.y > H then
 			self.health = 0
