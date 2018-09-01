@@ -50,25 +50,7 @@ Bullet = Class{
 	end
 }
 
-Player = Class{
-	__includes = Entity,
-	init = function(self, id, x, y, health, speed)
-		Entity.init(self, id, x, y)
-		self.health = health
-		self.speed = speed
-	end,
-	swap = function(self, target)
-		self.x = target.x
-		self.y = target.y
-		--smoke thingy
-	end,
-	reset = function(self)
-		self.x = W/2
-		self.y = H/2
-		self.health = 100
-		self.speed = 200
-	end
-}
+require "player"
 
 Box = Class{
 	__includes = Entity,

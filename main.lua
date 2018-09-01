@@ -105,36 +105,12 @@ function game:enter()
 end
 
 function game:update(dt)
-	local p = player
-	local p = player
-	if p.x < 0 or p.x > W or p.y < 0 or p.y > H then
+	if player.x < 0 or player.x > W or player.y < 0 or player.y > H then
 		Gamestate.switch(gs.over)
 	end
-	if isDown("up") then
-		player.y = player.y - player.speed * dt
-		currentFrame = 5
-	end
-	if isDown("down") then
-		player.y = player.y + player.speed * dt
-		currentFrame = 1
-	end
-	if isDown("left") then
-		player.x = player.x - player.speed * dt
-		if isDown("up") then		currentFrame = 4
-		elseif isDown("down") then	currentFrame = 2
-		else 						currentFrame = 3 end
-		dir = -1
-	end
-	if isDown("right") then
-		player.x = player.x + player.speed * dt
-		currentFrame = 3
-		if isDown("up") then		currentFrame = 4
-		elseif isDown("down") then	currentFrame = 2
-		else 						currentFrame = 3 end
-		dir = 1
-	end
+	player:move(dt)
 end
 
 function game:draw()
-	lg.draw(image, frames[currentFrame], player.x, player.y, 0, dir, 1, 12, 16)
+	player:draw()
 end
