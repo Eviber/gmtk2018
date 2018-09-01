@@ -22,6 +22,8 @@ local Vector = require "hump.vector"
 local Class = require "hump.class"
 local lg = love.graphics
 
+map_utils = {}
+
 W = 800
 H = 600
 
@@ -33,7 +35,7 @@ tileset = {
 }
 
 Tile = Class{
-  tilesize = 16
+  tilesize = 16,
   init = function(self, x, y, tile_img)
     self.indices = Vector.new(x, y)
     self.pos = Vector.new((x - 1) * tilesize, (y - 1) * tilesize)
@@ -59,10 +61,11 @@ function Map:draw()
   end
 end
 
-function strls_to_map(w, h, strls_map)
+function map_utils.strls_to_map(w, h, strls_map)
   local tilemap = {}
   for y, tiles in pairs(strls_map) do
-    for x, tile in tiles
+    for x = 1, #tiles do
+	  tile = tiles[x]
       if tile == '-' then
         table.insert(tilemap, Tile.init(x, y, tileset.floor))
       elseif tile == "X" then
@@ -71,6 +74,8 @@ function strls_to_map(w, h, strls_map)
     end
   end
   assert(w == string.len(strls_map[1]) and h == #strls_map, "Incoherent map_strls: "..w.."?="..string.len(strls_map[1]).."  "..h.."?="..#strls_map)
-  map = Map.init(w, h, tilemap)
+  map = Map:init(w, h, tilemap)
   return map
 end
+
+return map_utils

@@ -1,5 +1,5 @@
 local Gamestate = require "hump.gamestate"
-local MapUtils = require "map_utils"
+local map_utils = require "map_utils"
 
 map = map_utils.strls_to_map(80, 60,
   {
