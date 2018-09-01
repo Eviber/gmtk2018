@@ -27,7 +27,7 @@ RifleShooter = Class{
 	__includes = Enemy,
 	init = function(self, id, x, y)
 		Enemy.init(self, id, x, y, 3, 10)
-	end
+	end,
 	attack = function(x, y)
 		Bullet:init(table.getn(EntitiesList), x, y, 6, 10)
 	end
@@ -52,14 +52,21 @@ Bullet = Class{
 
 Player = Class{
 	__includes = Entity,
-	init = function(self, id, x, y, health)
+	init = function(self, id, x, y, health, speed)
 		Entity.init(self, id, x, y)
 		self.health = health
+		self.speed = speed
 	end,
 	swap = function(self, target)
 		self.x = target.x
 		self.y = target.y
 		--smoke thingy
+	end,
+	reset = function(self)
+		self.x = W/2
+		self.y = H/2
+		self.health = 100
+		self.speed = 200
 	end
 }
 
@@ -72,7 +79,7 @@ Box = Class{
 
 Wall = Class{
 	__includes = Entity,
-	init = function(self id, x, y)
+	init = function(self, id, x, y)
 		Entity.init(self, id, x, y)
 	end
 }
