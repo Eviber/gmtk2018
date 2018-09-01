@@ -99,6 +99,7 @@ function love.load()
 	Gamestate.switch(gs.start)
 	player = Player()
 	testEnemy = RifleShooter(1, 100, 100)
+	yourDumb = RifleShooter(2, 200, 100)
 	loadSprite()
 end
 
