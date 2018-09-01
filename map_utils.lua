@@ -21,13 +21,9 @@ end
 local Vector = require "hump.vector"
 local Class = require "hump.class"
 local lg = love.graphics
+local db = require "debug"
 
 map_utils = {}
-
-W = 800
-H = 600
-
-love.window.setMode(W, H, {resizable = false})
 
 tileset = {
 	wall = lg.newImage("assets/tmp/tmp_wall.png"),
@@ -51,30 +47,35 @@ Map = Class{
 	init = function(self, w, h, tilemap)
 		self.w = w
 		self.h = h
-		self.tiles = tilemap
+		self.tilemap = tilemap
 	end
 }
 
 function Map:draw()
-	for tile in self.tiles do
-		tile.draw()
+	for _, tileline in pairs(self.tilemap) do
+    for _, tile in pairs(tileline) do
+      tile.draw()
+    end
 	end
 end
 
 function map_utils.strls_to_map(w, h, strls_map)
 	local tilemap = {}
 	for y, tiles in pairs(strls_map) do
+    local tileline = {}
 		for x = 1, #tiles do
-			tile = tiles[x]
-			if tile == '-' then
-				table.insert(tilemap, Tile.init(x, y, tileset.floor))
-			elseif tile == "X" then
-				table.insert(tilemap, Tile.init(x, y, tileset.wall))
+			tilechar = tiles[x]
+			if tilechar == '-' then
+				table.insert(tileline, Tile(x, y, tileset.floor))
+			elseif tilechar == "X" then
+				table.insert(tileline, Tile(x, y, tileset.wall))
 			end
 		end
+    table.insert(tilemap, tileline)
 	end
 	assert(w == string.len(strls_map[1]) and h == #strls_map, "Incoherent map_strls: "..w.."?="..string.len(strls_map[1]).."  "..h.."?="..#strls_map)
-	map = Map:init(w, h, tilemap)
+	map = Map(w, h, tilemap)
+  db.print_table(map.tilemap[1])
 	return map
 end
 
