@@ -16,8 +16,9 @@ Brawler = Class{
 	end,
 	update = function(self, dt)
 		if self.health <= 0 then
-			destroy(self)
-			return(nil)
+			table.remove(EntitiesList, self.idx)
+			coll:remove(self)
+			return
 		end
 		self.cooldown = self.cooldown - dt
 		playerDist = math.sqrt((self.x - player.x)^2 + (self.y - player.y)^2)

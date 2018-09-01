@@ -100,6 +100,7 @@ function game:update(dt)
 		Gamestate.switch(gs.over)
 	end
 	for i, entity in pairs(EntitiesList) do
+		entity.idx = i
 		entity:update(dt)
 	end
 end
