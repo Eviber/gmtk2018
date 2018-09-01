@@ -74,6 +74,15 @@ function Player:move(dt)
 		if up then p.currentFrame = 4 end
 		if down then p.currentFrame = 2 end
 	end
+	do
+		local dx, dy = p.dx, p.dy
+		local norm = math.sqrt(dx^2 + dy^2)
+		local max = p.speed * dt
+		if norm > max then
+			p.dx = dx / norm * max
+			p.dy = dy / norm * max
+		end
+	end
 	p.x = p.x + p.dx
 	p.y = p.y + p.dy
 end
