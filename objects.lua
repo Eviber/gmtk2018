@@ -1,4 +1,5 @@
 Class = require "hump.class"
+local lg = love.graphics
 
 EntitiesList = {}
 
