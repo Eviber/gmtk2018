@@ -20,7 +20,7 @@ Brawler = Class{
 			return(nil)
 		end
 		self.cooldown = self.cooldown - dt
-		playerDist = math.sqrt((self.x + 8 - player.x)^2 + (self.y + 8 - player.y)^2)
+		playerDist = math.sqrt((self.x - player.x)^2 + (self.y - player.y)^2)
 		if playerDist < 30 and self.cooldown <= 0 then
 			self:attack()
 			self.cooldown = 2
