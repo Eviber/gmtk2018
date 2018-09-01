@@ -4,50 +4,67 @@ local lg = love.graphics
 EntitiesList = {}
 
 Entity = Class{
-	init = function(self, id, x, y)
+	init = function(self, id, x, y, speed, health)
 		self.id = id
 		self.x = x
 		self.y = y
-		table.insert(EntitiesList, id)
+		self.dx = 0
+		self.dy = 0
+		self.speed = speed
+		self.health = health
+		table.insert(EntitiesList, self)
 	end,
 	destroy = function(self)
 		table.remove(EntitiesList, self.id)
-	end
-}
-
-Enemy = Class{
-	__includes = Entity,
-	init = function(self, id, x, y, move, health)
-		Entity.init(self, id, x, y)
-		self.move = move
-		self.health = health
+	end,
+	normalize = function(self)
+		local dx, dy = self.dx, self.dy
+		local norm = math.sqrt(dx^2 + dy^2)
+		if norm > self.speed then
+			self.dx = dx / norm * self.speed
+			self.dy = dy / norm * self.speed
+		end
 	end
 }
 
 RifleShooter = Class{
-	__includes = Enemy,
+	__includes = Entity,
 	init = function(self, id, x, y)
-		Enemy.init(self, id, x, y, 3, 10)
+		Entity.init(self, id, x, y, 20, 50)
 	end,
-	attack = function(x, y)
-		Bullet:init(table.getn(EntitiesList), x, y, 6, 10)
+	attack = function(self)
+		Bullet:init(#table + 1, self.x, self.y, player.x - self.x, player.y - self.y)
+	end,
+	draw = function(self)
+		lg.setColor(1,1,1,1)
+		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
 	end
 }
 
 Projectile = Class{
 	__includes = Entity,
-	init = function(self, id, x, y, velocity, damage)
-		Entity.init(self, id, x, y)
-		self.velocity = velocity
+	init = function(self, id, x, y, dx, dy, speed, damage)
+		Entity.init(self, id, x, y, speed, 1)
 		self.damage = damage
+		self.dx = dx
+		self.dy = dy
+		self.normalize()
 	end
 }
 
 Bullet = Class{
 	__includes = Projectile,
-	init = function(self, id, x, y, velocity, damage)
-		Projectile.init(self, id, x, y, velocity, damage)
+	init = function(self, id, x, y, dx, dy)
+		Projectile.init(self, id, x, y, dx, dy, 70, 20)
 		--bullet sprite
+	end
+}
+
+Brawler = Class{
+	__includes = Entity,
+	init = function(self, id, x, y)
+		Entity.init(self, id, x, y, 50, 50)
+		self.damage = 20
 	end
 }
 
@@ -56,13 +73,13 @@ require "player"
 Box = Class{
 	__includes = Entity,
 	init = function(self, id, x, y)
-		Entity.init(self, id, x, y)
+		Entity.init(self, id, x, y, 0, 20)
 	end
 }
 
 Wall = Class{
 	__includes = Entity,
 	init = function(self, id, x, y)
-		Entity.init(self, id, x, y)
+		Entity.init(self, id, x, y, 0, 100)
 	end
 }

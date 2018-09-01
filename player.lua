@@ -11,11 +11,6 @@ Player = Class{
 		self.dy = 0
 		self:loadSprite()
 	end,
-	swap = function(self, target)
-		self.x = target.x
-		self.y = target.y
-		--smoke thingy
-	end,
 	reset = function(self)
 		self.x = W/2
 		self.y = H/2
@@ -23,7 +18,7 @@ Player = Class{
 		self.speed = 100
 	end,
 	draw = function(self)
-		lg.draw(self.image, frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
+		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
 	end
 }
 
@@ -39,9 +34,20 @@ function Player:loadSprite()
 		table.insert(frames, lg.newQuad(1 + i*frameW + i, 1, frameW, frameH, width, height))
 	end
 	self.image = image
-	self.frame = frame
+	self.frames = frames
 	self.currentFrame = 1
 	self.dir = 1
+end
+
+function Player:swap(target)
+	local x = self.x
+	local y = self.y
+
+	self.x = target.x
+	self.y = target.y
+	target.x = x
+	target.y = y
+	--smoke thingy
 end
 
 function Player:move(dt)
