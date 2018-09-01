@@ -92,7 +92,7 @@ function loadSprite()
 end
 
 function love.load()
-	W, H = 800, 600
+	W, H = 640, 360
 	love.window.setMode(W, H)
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)
