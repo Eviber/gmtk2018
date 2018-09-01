@@ -11,11 +11,6 @@ Player = Class{
 		self.dy = 0
 		self:loadSprite()
 	end,
-	swap = function(self, target)
-		self.x = target.x
-		self.y = target.y
-		--smoke thingy
-	end,
 	reset = function(self)
 		self.x = W/2
 		self.y = H/2
@@ -42,6 +37,13 @@ function Player:loadSprite()
 	self.frame = frame
 	self.currentFrame = 1
 	self.dir = 1
+end
+
+function Player:swap(self, target)
+	print (target)
+	self.x = target.x
+	self.y = target.y
+	--smoke thingy
 end
 
 function Player:move(dt)

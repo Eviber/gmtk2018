@@ -69,6 +69,7 @@ map = map_utils.strls_to_map(80, 60,
 
 gs = {}
 gs.game = {}
+require "controls"
 
 require "startend"
 
@@ -97,6 +98,7 @@ function love.load()
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)
 	player = Player()
+	testEnemy = RifleShooter(1, 100, 100)
 	loadSprite()
 end
 
@@ -113,4 +115,7 @@ end
 
 function game:draw()
 	player:draw()
+	for i, entity in pairs(EntitiesList) do
+		entity:draw()
+	end
 end
