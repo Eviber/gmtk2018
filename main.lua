@@ -100,6 +100,7 @@ function game:update(dt)
 		Gamestate.switch(gs.over)
 	end
 	for i, entity in pairs(EntitiesList) do
+		entity.idx = i
 		entity:update(dt)
 	end
 end
@@ -110,4 +111,7 @@ function game:draw()
 	for i, entity in pairs(EntitiesList) do
 		entity:draw()
 	end
+	lg.setColor(1,1,1,1)
+	lg.setFont(startFont)
+	lg.print(player.health)
 end

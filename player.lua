@@ -64,17 +64,19 @@ function Player:swap(target)
 
 	self.x = target.x
 	self.y = target.y
+	coll:update(self, self.x, self.y)
 	target.x = x
 	target.y = y
+	coll:update(target, x, y)
 	--smoke thingy
 end
 
 function Player:setVel(dt)
 	local p = self
-	local up = isDown("up")
-	local down = isDown("down")
-	local left = isDown("left")
-	local right = isDown("right") 
+	local up = isDown("w")
+	local down = isDown("s")
+	local left = isDown("a")
+	local right = isDown("d") 
 
 	p.dx = 0
 	p.dy = 0
