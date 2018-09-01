@@ -111,4 +111,7 @@ function game:draw()
 	for i, entity in pairs(EntitiesList) do
 		entity:draw()
 	end
+	lg.setColor(1,1,1,1)
+	lg.setFont(startFont)
+	lg.print(player.health)
 end
