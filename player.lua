@@ -39,10 +39,14 @@ function Player:loadSprite()
 	self.dir = 1
 end
 
-function Player:swap(self, target)
-	print (target)
+function Player:swap(target)
+	local x = self.x
+	local y = self.y
+
 	self.x = target.x
 	self.y = target.y
+	target.x = x
+	target.y = y
 	--smoke thingy
 end
 
