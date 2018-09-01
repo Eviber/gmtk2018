@@ -5,7 +5,12 @@ RifleShooter = Class{
 		self.cd = 3
 	end,
 	attack = function(self)
-		Bullet(69, self.x, self.y, player.x - self.x, player.y - self.y)
+		local dx = player.x - self.x
+		local dy = player.y - self.y
+		local norm = math.sqrt(dx^2 + dy^2)
+		local x = self.x + dx / norm * 23
+		local y = self.y + dy / norm * 23
+		Bullet(69, x, y, dx, dy)
 	end,
 	draw = function(self)
 		lg.setColor(0,1,1,1)

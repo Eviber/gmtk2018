@@ -14,7 +14,7 @@ local lg = love.graphics
 local isDown = love.keyboard.isDown
 
 function love.load()
-	W, H = 800, 600
+	W, H = 80*16, 60*16
   love.window.setMode(W, H, {resizable = false})
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)

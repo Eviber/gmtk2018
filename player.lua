@@ -1,3 +1,4 @@
+require "collide"
 lg = love.graphics
 local isDown = love.keyboard.isDown
 
@@ -26,7 +27,7 @@ Player = Class{
 	end,
 	update = function(self, dt)
 		self:setVel(dt)
-		self.x, self.y = coll:move(self, self.x + self.dx, self.y + self.dy)
+		self.x, self.y = coll:move(self, self.x + self.dx, self.y + self.dy, filter)
 	end
 }
 

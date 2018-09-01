@@ -1,5 +1,6 @@
 Class = require "hump.class"
 local lg = love.graphics
+require "collide"
 
 EntitiesList = {}
 
@@ -30,7 +31,8 @@ Entity = Class{
 			table.remove(EntitiesList, self)
 			coll:remove(self)
 		end
-		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt)
+		print(filter)
+		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 	end,
 	draw = function(self)
 		lg.setColor(1,1,1,1)
