@@ -1,4 +1,5 @@
 require "collide"
+local peachy = require "peachy.peachy"
 
 Brawler = Class{
 	__includes = Entity,
@@ -8,6 +9,7 @@ Brawler = Class{
 		self.origy = y
 		self.damage = 20
 		self.cooldown = 3
+		self.sprite = peachy.new("assets/enemy.json", love.graphics.newImage("assets/brawler.png"), "walk_D")
 		self.attacking = false
 		self.target = {x = x, y = y}
 	end,

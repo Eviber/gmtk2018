@@ -1,3 +1,5 @@
+local peachy = require "peachy.peachy"
+
 RifleShooter = Class{
 	__includes = Entity,
 	init = function(self, x, y)
