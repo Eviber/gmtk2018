@@ -35,7 +35,7 @@ function love.load()
 	fx_blink:onLoop(function() player.swapping = false player:swap(player.swap_target) end)
 	fx_smoke = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "smoke")
 	fx_smoke:onLoop(function() player.swap_fx = false end)
-	love.mouse.setVisible(false)
+	
 
 	map = map_utils.strls_to_map(60, 40,
 	{
@@ -93,10 +93,11 @@ end
 
 function game:enter()
 	player:reset()
+	love.mouse.setVisible(false)
 end
 
 function game:update(dt)
-	if player.x < 0 or player.x > W or player.y < 0 or player.y > H then
+	if player.health <= 0 then
 		Gamestate.switch(gs.over)
 	end
 	for i, entity in pairs(EntitiesList) do

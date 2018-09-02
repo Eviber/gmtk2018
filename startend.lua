@@ -71,7 +71,7 @@ function start:draw()
 	lg.print("Credits", W/2 - 40, H/2 + 120)
 	lg.setFont(smolFont)
 	lg.setColor(1,1,1,1)
-	lg.print("Actually this is a placeholder and you need to press Enter to play lul", W/2 - 150, H/2 + 200)
+	--lg.print("Actually this is a placeholder and you need to press Enter to play lul", W/2 - 150, H/2 + 200)
 	if len ~= 0 then
 		if items[1] == 1 then
 			fakePlayer:draw(W/2 - 100, H/2)
