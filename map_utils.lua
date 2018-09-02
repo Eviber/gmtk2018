@@ -18,6 +18,9 @@ function Critter:draw()
 end
 ]]--
 
+TILESIZE = 16
+ID_ITER = 2
+
 local Vector = require "hump.vector"
 local Class = require "hump.class"
 local lg = love.graphics
@@ -33,7 +36,7 @@ tileset = {
 }
 
 Tile = Class{
-	tilesize = 16,
+	tilesize = TILESIZE,
 	init = function(self, x, y, enumstr, tile_img)
 		self.indices = Vector.new(x, y)
 		self.pos = Vector.new((x - 1) * self.tilesize, (y - 1) * self.tilesize)
@@ -76,7 +79,7 @@ function map_utils.strls_to_map(w, h, strls_map)
 		for x = 1, #tiles do
 			local tilechar = tiles:sub(x,x)
       local curtile
-			if tilechar == '-' then
+			if tilechar == '-' or tilechar == 'B' or tilechar == 'S' or tilechar == 'P' then
         curtile = Tile(x, y, "floor", tileset.floor)
 			elseif tilechar == "X" then
 				curtile = Tile(x, y, "wall", tileset.wall)
@@ -84,6 +87,20 @@ function map_utils.strls_to_map(w, h, strls_map)
         curtile = Tile(x, y, "err", tileset.err)
 			end
       table.insert(tileline, curtile)
+      pixx = (x - 1) * TILESIZE
+      pixy = (y - 1) * TILESIZE
+      if tilechar ~= '-' and tilechar ~= 'X' then
+        print("Char: "..tilechar..", pos: ("..pixx..", "..pixy..")")
+      end
+      if tilechar == 'P' then
+        player = Player(1, pixx, pixy)
+      elseif tilechar == 'B' then
+        Brawler(ID_ITER, pixx, pixy)
+        ID_ITER = ID_ITER + 1
+      elseif tilechar == 'S' then
+        RifleShooter(ID_ITER, pixx, pixy)
+        ID_ITER = ID_ITER + 1
+      end
 		end
     table.insert(tilemap, tileline)
 	end

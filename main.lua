@@ -16,7 +16,7 @@ local isDown = love.keyboard.isDown
 local cursorImg = lg.newImage("assets/cursor.png")
 
 function love.load()
-	tilesize = 16
+	local tilesize = TILESIZE
 	W_tiles, H_tiles = 60, 40
 	W = W_tiles * tilesize
 	H = H_tiles * tilesize
@@ -24,35 +24,57 @@ function love.load()
 	Gamestate.registerEvents()
 	Gamestate.switch(gs.start)
 	coll = bump.newWorld()
-	player = Player(1, W/2, H/2, 100, 100)
-	--testEnemy = RifleShooter(1, 100, 100)
-	--yourDumb = RifleShooter(2, 200, 100)
-	--iHitYou = Brawler(3, 300, 100)
-	--Brawler(math.random(16, W - 32), math.random(16, H - 32))
-	--Brawler(math.random(16, W - 32), math.random(16, H - 32))
-	--Brawler(math.random(16, W - 32), math.random(16, H - 32))
-	RifleShooter(math.random(16, W - 32), math.random(16, H - 32))
-	--RifleShooter(math.random(16, W - 32), math.random(16, H - 32))
+	--for i = 0, 10 do
+	--	Brawler(math.random(16, W - 32), math.random(16, H - 32))
+	--end
 	fx_blink = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "blink")
 	fx_blink:onLoop(function() player.swapping = false player:swap(player.swap_target) end)
 	fx_smoke = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "smoke")
 	fx_smoke:onLoop(function() player.swap_fx = false end)
 	
 
-	map = map_utils.strls_to_map(12, 12,
+	map = map_utils.strls_to_map(60, 40,
 	{
-		"XXXXXXXXXXXX",
-		"X----------X",
-		"X----------X",
-		"XXXX----XXXX",
-		"X----------X",
-		"X-----X----X",
-		"X-----X----X",
-		"X--XXXXXXXXX",
-		"X---X------X",
-		"X---X---X--X",
-		"X-------X--X",
-		"XXXXXXXXXXXX",
+		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"X--------X-------------------------------------------------X",
+		"X--------X-------------------------------------------------X",
+		"X--------X-------------------------------------------------X",
+		"X--------X-------------------------------------------------X",
+		"XXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"XXXXXXXXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXX",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"XXXXXXXXXXXXXXXXXXXXXXXXXX----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"X-----------------------X------X---------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X----------P------------X------X------------S--------------X",
+		"X-----------------------X------X---------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X----------B-----------------------------------------------X",
+		"X----------------------------------------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X-----------------------X------X---------------------------X",
+		"X--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
+		"X----------------------------------------------------------X",
+		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	}
 	)
 	xmap = {}
@@ -84,7 +106,7 @@ end
 
 function draw_mouse_scope()
 	local x, y = love.mouse.getX(), love.mouse.getY()
-	lg.draw(cursorImg, x - 8, y - 8) --, 0, 1, 16, 16)
+	lg.draw(cursorImg, x - 8, y - 8)
 end
 
 function game:draw()
