@@ -14,7 +14,9 @@ RifleShooter = Class{
 	end,
 	draw = function(self)
 		lg.setColor(0,1,1,1)
-		lg.rectangle("fill", self.x-8, self.y-8, 16, 16)
+		lg.rectangle("fill", self.x, self.y, 16, 16)
+		--lg.setColor(0,1,0,1)
+		--lg.rectangle("line", coll:getRect(self))
 	end,
 	update = function(self, dt)
 		self.cd = self.cd - dt
