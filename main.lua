@@ -1,6 +1,6 @@
 local Gamestate = require "hump.gamestate"
-bump = require "bump/bump"
-peachy = require "peachy/peachy"
+local bump = require "bump/bump"
+local peachy = require "peachy.peachy"
 local map_utils = require "map_utils"
 require "objects"
 
@@ -115,8 +115,13 @@ function game:draw()
 		entity:draw()
 	end
 	lg.setColor(1,1,1,1)
-  if player.swapping then fx_blink:draw(player.x - 32, player.y - 32) end
-  if player.swap_fx then fx_smoke:draw(player.x - 32, player.y - 32) end
+  if player.swapping then
+    fx_blink:draw(player.x - 32, player.y - 32)
+  end
+  if player.swap_fx then
+    fx_smoke:draw(player.x - 32, player.y - 32)
+    fx_smoke:draw(player.swap_target.x - 32, player.swap_target.y - 32)
+  end
   draw_mouse_scope()
 	lg.setFont(startFont)
 	lg.print(player.health)

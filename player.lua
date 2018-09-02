@@ -23,7 +23,9 @@ Player = Class{
     --self.hitbox_pos = Vector.new(x - 4, y - 12) 
     --self.hitbox_end = Vector.new(self.hitbox_pos.x + 16, self.hitbox_pos.y + 16)
     self.grid_pos = Vector.new(floor(self.x / 16), floor(self.y / 16))
-		self:loadSprite()
+    self.sprite = peachy.new("assets/player.json", love.graphics.newImage("assets/player.png"), "walk_D")
+    self.angle = 1
+    self.dir = 1
 		coll:update(self, x, y)
 	end,
   
@@ -36,7 +38,7 @@ Player = Class{
   
 	draw = function(self)
 		lg.setColor(1,1,1,1)
-		lg.draw(self.image, self.frames[self.currentFrame], self.x, self.y, 0, self.dir, 1, 12, 16)
+		self.sprite:draw(self.x, self.y, 0, self.dir, 1, 12, 16)
 		lg.setColor(0,1,0,1)
 		lg.rectangle("line", coll:getRect(self))
 	end,
@@ -47,29 +49,20 @@ Player = Class{
       self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)
       self.x = self.x + 8
     end
+    self.sprite:update(dt)
 	end
 }
-
-function Player:loadSprite()
-	local image  = lg.newImage("sprite.png")
-	local width  = image:getWidth()
-	local height = image:getHeight()
-	local frameW = 24
-	local frameH = 32
-	local frames = {}
-
-	for i = 0, 4 do
-		table.insert(frames, lg.newQuad(1 + i*frameW + i, 1, frameW, frameH, width, height))
-	end
-	self.image = image
-	self.frames = frames
-	self.currentFrame = 1
-	self.dir = 1
-end
 
 function Player:swap_prepare(target)
   self.swap_target = target
   self.swapping = true
+  if self.angle == 0 then print("error")
+  elseif self.angle == 1 then self.sprite:setTag("swap_D")
+  elseif self.angle == 2 then self.sprite:setTag("swap_DR")
+  elseif self.angle == 3 then self.sprite:setTag("swap_R")
+  elseif self.angle == 4 then self.sprite:setTag("swap_UR")
+  elseif self.angle == 5 then self.sprite:setTag("swap_U")
+  end
 end
 function Player:swap(target)
 	local x = self.x
@@ -82,38 +75,51 @@ function Player:swap(target)
 	target.y = y
 	coll:update(target, x, y)
   self.swap_fx = true
-  self.swap_target = nil
 end
 
 function Player:setVel(dt)
 	local p = self
-	local up = isDown("w")
+	local up = isDown("w") or isDown("z")
 	local down = isDown("s")
-	local left = isDown("a")
+	local left = isDown("a") or isDown("q")
 	local right = isDown("d") 
 
 	p.dx = 0
 	p.dy = 0
 	if up then
 		p.dy = -p.speed * dt
-		p.currentFrame = 5
+    self.sprite:setTag("walk_U")
+    self.angle = 5
 	end
-	if down then
+  if down then
 		p.dy = p.speed * dt
-		p.currentFrame = 1
+    self.sprite:setTag("walk_D")
+    self.angle = 1
 	end
-	if left then
+  if left then
 		p.dx = -p.speed * dt
 		p.dir = -1
 	end
-	if right then
+  if right then
 		p.dx = p.speed * dt
 		p.dir = 1
 	end
-	if left or right then
-		p.currentFrame = 3
-		if up then p.currentFrame = 4 end
-		if down then p.currentFrame = 2 end
+  if left or right then
+    self.sprite:setTag("walk_R")
+    self.angle = 3
+		if up then
+      self.sprite:setTag("walk_UR")
+      self.angle = 4
+    end
+		if down then
+      self.sprite:setTag("walk_DR")
+      self.angle = 2
+    end
+  end
+  if (up or down or left or right) then
+    self.sprite:play()
+  else
+    self.sprite:pause()
 	end
 	do
 		local dx, dy = p.dx, p.dy
