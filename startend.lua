@@ -106,4 +106,5 @@ function over:draw()
 	lg.setFont(startFont)
 	lg.setColor(1,0,0,1)
 	lg.print("GAME OVER", W/2 - 130, H/2 - 50)
+	love.mouse.setVisible(true)
 end
