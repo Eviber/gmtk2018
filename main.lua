@@ -28,57 +28,31 @@ function love.load()
 	--testEnemy = RifleShooter(1, 100, 100)
 	--yourDumb = RifleShooter(2, 200, 100)
 	--iHitYou = Brawler(3, 300, 100)
-	for i = 0, 10 do
-		Brawler(math.random(16, W - 32), math.random(16, H - 32))
-	end
+	--Brawler(math.random(16, W - 32), math.random(16, H - 32))
+	--Brawler(math.random(16, W - 32), math.random(16, H - 32))
+	--Brawler(math.random(16, W - 32), math.random(16, H - 32))
+	RifleShooter(math.random(16, W - 32), math.random(16, H - 32))
+	--RifleShooter(math.random(16, W - 32), math.random(16, H - 32))
 	fx_blink = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "blink")
 	fx_blink:onLoop(function() player.swapping = false player:swap(player.swap_target) end)
 	fx_smoke = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "smoke")
 	fx_smoke:onLoop(function() player.swap_fx = false end)
 	
 
-	map = map_utils.strls_to_map(60, 40,
+	map = map_utils.strls_to_map(12, 12,
 	{
-		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"X--------X-------------------------------------------------X",
-		"X--------X-------------------------------------------------X",
-		"X--------X-------------------------------------------------X",
-		"X--------X-------------------------------------------------X",
-		"XXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"XXXXXXXXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXX",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"XXXXXXXXXXXXXXXXXXXXXXXXXX----XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X----------------------------------------------------------X",
-		"X----------------------------------------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X-----------------------X------X---------------------------X",
-		"X--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
-		"X----------------------------------------------------------X",
-		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+		"XXXXXXXXXXXX",
+		"X----------X",
+		"X----------X",
+		"XXXX----XXXX",
+		"X----------X",
+		"X-----X----X",
+		"X-----X----X",
+		"X--XXXXXXXXX",
+		"X---X------X",
+		"X---X---X--X",
+		"X-------X--X",
+		"XXXXXXXXXXXX",
 	}
 	)
 	xmap = {}
