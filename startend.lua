@@ -123,7 +123,7 @@ end
 
 function over:update(dt)
 	if isDown("return") then
-		love.load()
+		love.event.quit("restart")
 	elseif isDown("escape") then
 		love.event.quit()
 	end
