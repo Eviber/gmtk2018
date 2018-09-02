@@ -80,7 +80,7 @@
   "size": { "w": 192, "h": 32 },
   "scale": "1",
   "frameTags": [
-   { "name": "walk_U", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "walk_D", "from": 0, "to": 1, "direction": "forward" },
    { "name": "walk_L", "from": 2, "to": 3, "direction": "forward" },
    { "name": "walk_R", "from": 4, "to": 5, "direction": "forward" },
    { "name": "walk_U", "from": 6, "to": 7, "direction": "forward" }
