@@ -1,10 +1,12 @@
 
 local Vector = require "hump.vector"
 require "collide"
+local peachy = require "peachy.peachy"
 
 lg = love.graphics
 local isDown = love.keyboard.isDown
 local floor = math.floor
+fx_swap = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "smoke")
 
 Player = Class{
 	__includes = Entity,
@@ -41,6 +43,7 @@ Player = Class{
 		self:setVel(dt)
 		self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)
 		self.x = self.x + 8
+    fx_swap:update(dt)
 	end
 }
 
@@ -52,7 +55,7 @@ function Player:loadSprite()
 	local frameH = 32
 	local frames = {}
 
-	for i=0,4 do
+	for i = 0, 4 do
 		table.insert(frames, lg.newQuad(1 + i*frameW + i, 1, frameW, frameH, width, height))
 	end
 	self.image = image
@@ -60,6 +63,7 @@ function Player:loadSprite()
 	self.currentFrame = 1
 	self.dir = 1
 end
+
 
 function Player:swap(target)
 	local x = self.x
@@ -72,6 +76,7 @@ function Player:swap(target)
 	target.y = y
 	coll:update(target, x, y)
 	--smoke thingy
+  fx_swap:draw(x, y)
 end
 
 function Player:setVel(dt)
