@@ -1,7 +1,7 @@
 function filter(item, other)
-	if item.id == 69 and other.id == 69 then
+	if item.id == "Bullet" and other.id == "Bullet" then
 		return false
-	elseif item.id == 69 or other.id == 69 then
+	elseif item.id == "Bullet" or other.id == "Bullet" then
 		return "cross"
 	end
 	return "slide"
