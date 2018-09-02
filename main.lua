@@ -88,7 +88,6 @@ end
 
 
 function game:enter()
-	player:reset()
 	love.mouse.setVisible(false)
 end
 

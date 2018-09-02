@@ -28,13 +28,6 @@ Player = Class{
 		coll:update(self, x, y)
 	end,
 
-	reset = function(self)
-		self.x = W/2
-		self.y = H/2
-		self.health = 100
-		self.speed = 100
-	end,
-
 	hit = function(self, damage)
 		if self.invincible <= 0 then
 			self.invincible = 4

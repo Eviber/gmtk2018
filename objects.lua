@@ -5,8 +5,8 @@ require "collide"
 EntitiesList = {}
 
 Entity = Class{
-	init = function(self, id, x, y, speed, health)
-		self.id = id
+	init = function(self, id_str, x, y, speed, health)
+    self.id_str = id_str
 		self.idx = #EntitiesList + 1
 		self.x = x
 		self.y = y
