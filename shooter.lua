@@ -1,7 +1,7 @@
 RifleShooter = Class{
 	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 20, 50)
+	init = function(self, x, y)
+		Entity.init(self, x, y, 20, 50)
 		self.cd = 3
 	end,
 	attack = function(self)

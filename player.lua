@@ -9,10 +9,10 @@ local floor = math.floor
 
 Player = Class{
 	__includes = Entity,
-	init = function(self, id, x, y)
+	init = function(self, x, y)
 		x = x or W/2
 		y = y or H/2
-		Entity.init(self, id, x, y)
+		Entity.init(self, x, y)
 		self.health = 100
 		self.speed = 100
 		self.dx = 0
@@ -26,13 +26,6 @@ Player = Class{
 		self.dir = 1
 		self.invincible = 0
 		coll:update(self, x, y)
-	end,
-
-	reset = function(self)
-		self.x = W/2
-		self.y = H/2
-		self.health = 100
-		self.speed = 100
 	end,
 
 	hit = function(self, damage)

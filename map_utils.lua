@@ -19,7 +19,6 @@ end
 ]]--
 
 TILESIZE = 16
-ID_ITER = 2
 
 local Vector = require "hump.vector"
 local Class = require "hump.class"
@@ -93,13 +92,11 @@ function map_utils.strls_to_map(w, h, strls_map)
         print("Char: "..tilechar..", pos: ("..pixx..", "..pixy..")")
       end
       if tilechar == 'P' then
-        player = Player(1, pixx, pixy)
+        player = Player(pixx, pixy)
       elseif tilechar == 'B' then
-        Brawler(ID_ITER, pixx, pixy)
-        ID_ITER = ID_ITER + 1
+        Brawler(pixx, pixy)
       elseif tilechar == 'S' then
-        RifleShooter(ID_ITER, pixx, pixy)
-        ID_ITER = ID_ITER + 1
+        RifleShooter(pixx, pixy)
       end
 		end
     table.insert(tilemap, tileline)

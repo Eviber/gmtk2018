@@ -3,13 +3,13 @@ require "collide"
 Brawler = Class{
 	__includes = Entity,
 	init = function(self, x, y)
-		Entity.init(self, "Brawler", x, y, 50, 50)
-		self.origx = x - x % 16
-		self.origy = y - x % 16
+		Entity.init(self, x, y, 50, 50)
+		self.origx = x
+		self.origy = y
 		self.damage = 20
 		self.cooldown = 3
 		self.attacking = false
-		self.target = {x=x, y=y}
+		self.target = {x = x, y = y}
 	end,
 	draw = function(self)
 		lg.setColor(1,0,1,1)
