@@ -35,6 +35,19 @@ function love.load()
 
 	map = map_utils.strls_to_map(60, 40,
 	{
+--[[
+		"XXXXXXXXXXXX",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"X----------X",
+		"XXXXXXXXXXXX"]]
 		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"X----------------------------------------------------------X",
 		"X----------------------------------------------------------X",
@@ -46,7 +59,7 @@ function love.load()
 		"X--------X-------------------------------------------------X",
 		"X--------X-------------------------------------------------X",
 		"X--------X-------------------------------------------------X",
-		"XXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
+		"XXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
 		"X----------------------------------------------------------X",
 		"X----------------------------------------------------------X",
 		"XXXXXXXXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXX",
