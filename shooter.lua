@@ -1,8 +1,11 @@
+local peachy = require "peachy.peachy"
+
 RifleShooter = Class{
 	__includes = Entity,
 	init = function(self, x, y)
 		Entity.init(self, "Shooter", x, y, 20, 50)
 		self.cd = 3
+		self.sprite = peachy.new("assets/enemy.json", love.graphics.newImage("assets/shooter.png"), "walk_D")
 	end,
 	attack = function(self)
 		local dx = player.x - self.x
@@ -13,8 +16,10 @@ RifleShooter = Class{
 		Bullet(x, y, dx, dy)
 	end,
 	draw = function(self)
-		lg.setColor(0,1,1,1)
-		lg.rectangle("fill", self.x, self.y, 16, 16)
+		lg.setColor(1,1,1,1)
+		self.sprite:draw(self.x + 8, self.y, 0, 1, 1, 12, 16)
+		--lg.setColor(0,1,1,1)
+		--lg.rectangle("fill", self.x, self.y, 16, 16)
 		--lg.setColor(0,1,0,1)
 		--lg.rectangle("line", coll:getRect(self))
 	end,
@@ -29,6 +34,21 @@ RifleShooter = Class{
 				self.cd = 0.7
 			end
 		end
+		if self.dx == 0 and self.dy == 0 then
+		self.sprite:pause()
+		else
+			if math.abs(self.dx) > math.abs(self.dy) then
+				if self.dx > 0 then self.sprite:setTag("walk_R")
+				elseif self.dx < 0 then self.sprite:setTag("walk_L")
+				end
+			elseif math.abs(self.dx) < math.abs(self.dy) then
+				if self.dy > 0 then self.sprite:setTag("walk_D")
+				elseif self.dy < 0 then self.sprite:setTag("walk_U")
+				end
+			end
+			self.sprite:play()
+		end
+		self.sprite:update(dt)
 		if self.health <= 0 then
 			table.remove(EntitiesList, self.idx)
 			coll:remove(self)
