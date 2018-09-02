@@ -59,7 +59,7 @@ function love.load()
 		"X--------X-------------------------------------------------X",
 		"X--------X-------------------------------------------------X",
 		"X--------X-------------------------------------------------X",
-		"XXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
+		"XXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--X",
 		"X----------------------------------------------------------X",
 		"X----------------------------------------------------------X",
 		"XXXXXXXXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXX",
