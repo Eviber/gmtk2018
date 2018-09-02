@@ -37,9 +37,6 @@ function gs.start:mousepressed(x, y, button, istouch, presses)
 end
 
 function start:update(dt)
-	if isDown("return") then
-		Gamestate.switch(gs.game)
-	end
 	local x, y = love.mouse.getPosition()
 	items, len = menuHighlight:queryPoint(x, y) 
 	fakePlayer:update(dt)
@@ -47,6 +44,8 @@ function start:update(dt)
 		timer = timer + dt
 		if timer > 0.2 then
 			timer = 0
+			clickedPlay = false
+			fakePlayer = peachy.new("assets/player.json", love.graphics.newImage("assets/player.png"), "walk_D")
 			Gamestate.switch(gs.game)
 		end
 	end
