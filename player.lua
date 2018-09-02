@@ -44,7 +44,7 @@ Player = Class{
 		else
 			lg.setColor(1,1,1,0.3)
 		end
-		self.sprite:draw(self.x, self.y, 0, self.dir, 1, 12, 16)
+		self.sprite:draw(self.x + 8, self.y, 0, self.dir, 1, 12, 16)
 		--lg.setColor(0,1,0,1)
 		--lg.rectangle("line", coll:getRect(self))
 	end,
@@ -53,8 +53,8 @@ Player = Class{
 		self.invincible = self.invincible - dt
 		if not self.swapping then
 			self:setVel(dt)
-			self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)
-			self.x = self.x + 8
+			self.x, self.y = coll:move(self, self.x + self.dx, self.y + self.dy, filter)
+			self.x = self.x
 		end
 		self.sprite:update(dt)
 	end
