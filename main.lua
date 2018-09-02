@@ -80,7 +80,14 @@ function love.load()
 		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	}
 	)
-end  
+	xmap = {}
+	for _, i in ipairs(map.tilemap) do
+		table.insert(xmap, {})
+		for l, val in ipairs(i) do
+			table.insert(xmap[#xmap], val.enumstr == "wall" and 1 or 0)
+		end
+	end
+end
 
 
 function game:enter()

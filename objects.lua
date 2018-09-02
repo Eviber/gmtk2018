@@ -26,6 +26,9 @@ Entity = Class{
 		self.dx = dx / norm * self.speed
 		self.dy = dy / norm * self.speed
 	end,
+	hit = function(self, damage)
+		self.health = self.health - damage
+	end,
 	update = function(self, dt)
 		if self.health <= 0 then
 			print("Argh!")

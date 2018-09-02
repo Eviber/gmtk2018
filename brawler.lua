@@ -4,10 +4,12 @@ Brawler = Class{
 	__includes = Entity,
 	init = function(self, x, y)
 		Entity.init(self, "Brawler", x, y, 50, 50)
+		self.origx = x - x % 16
+		self.origy = y - x % 16
 		self.damage = 20
 		self.cooldown = 3
 		self.attacking = false
-		self.target = {}
+		self.target = {x=x, y=y}
 	end,
 	draw = function(self)
 		lg.setColor(1,0,1,1)
@@ -38,8 +40,19 @@ function Brawler:update(dt)
 	elseif self.attacking then
 		self:attack(dt)
 	elseif playerDist > 30 then
-		self.dx = player.x - self.x
-		self.dy = player.y - self.y
+		local items, len = coll:querySegment(self.x + 8, self.y + 8, player.x, player.y, function(item) return not item.health end)
+		if len == 0 then
+			self.target.x = player.x
+			self.target.y = player.y
+		end
+		local dx = self.target.x - self.x
+		local dy = self.target.y - self.y
+		if math.sqrt(dx^2+dy^2) < 64 then
+			self.target.x = self.origx
+			self.target.y = self.origy
+		end
+		self.dx = dx
+		self.dy = dy
 		self:normalize()
 		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 	end
@@ -63,7 +76,7 @@ function Brawler:attack(dt)
 			return "cross"
 		end)
 		for _, item in pairs(items) do
-			item.health = item.health - self.damage
+			item:hit(self.damage)
 			local dx = item.x - self.x
 			local dy = item.y - self.y
 			local norm = math.sqrt(dx^2 + dy^2)

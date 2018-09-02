@@ -48,7 +48,7 @@ Projectile = Class{
       print(cols[1])
       print(cols[1].other)
       if cols[1].other.health then
-        cols[1].other.health = cols[1].other.health - self.damage
+        cols[1].other:hit(self.damage)
       end
 		end
 		if self.x < 0 or self.x > W or self.y < 0 or self.y > H then
