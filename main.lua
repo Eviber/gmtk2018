@@ -12,6 +12,7 @@ require "startend"
 local game = gs.game
 local lg = love.graphics
 local isDown = love.keyboard.isDown
+local cursorImg = lg.newImage("assets/cursor.png")
 
 function love.load()
 	W, H = 80*16, 60*16
@@ -23,6 +24,7 @@ function love.load()
 	testEnemy = RifleShooter(1, 100, 100)
 	yourDumb = RifleShooter(2, 200, 100)
 	iHitYou = Brawler(3, 300, 100)
+  love.mouse.setVisible(false)
 
   map = map_utils.strls_to_map(80, 60,
   {
@@ -105,6 +107,11 @@ function game:update(dt)
 	end
 end
 
+function draw_mouse_scope()
+  local x, y = love.mouse.getX(), love.mouse.getY()
+  lg.draw(cursorImg, x - 8, y - 8) --, 0, 1, 16, 16)
+end
+
 function game:draw()
   map:draw()
 	player:draw()
@@ -112,6 +119,7 @@ function game:draw()
 		entity:draw()
 	end
 	lg.setColor(1,1,1,1)
+  draw_mouse_scope()
 	lg.setFont(startFont)
 	lg.print(player.health)
 end
