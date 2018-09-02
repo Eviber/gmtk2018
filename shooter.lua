@@ -10,7 +10,7 @@ RifleShooter = Class{
 		local norm = math.sqrt(dx^2 + dy^2)
 		local x = self.x + dx / norm * 23
 		local y = self.y + dy / norm * 23
-		Bullet(69, x, y, dx, dy)
+		Bullet(x, y, dx, dy)
 	end,
 	draw = function(self)
 		lg.setColor(0,1,1,1)
@@ -63,8 +63,8 @@ Projectile = Class{
 
 Bullet = Class{
 	__includes = Projectile,
-	init = function(self, id, x, y, dx, dy)
-		Projectile.init(self, id, x, y, dx, dy, 70, 20)
+	init = function(self, x, y, dx, dy)
+		Projectile.init(self, "Bullet", x, y, dx, dy, 70, 20)
 		--bullet sprite
 	end,
 	draw = function(self)
