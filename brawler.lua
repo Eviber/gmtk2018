@@ -1,4 +1,5 @@
 require "collide"
+local peachy = require "peachy.peachy"
 
 Brawler = Class{
 	__includes = Entity,
@@ -8,12 +9,14 @@ Brawler = Class{
 		self.origy = y
 		self.damage = 20
 		self.cooldown = 3
+		self.sprite = peachy.new("assets/enemy.json", love.graphics.newImage("assets/brawler.png"), "walk_D")
 		self.attacking = false
 		self.target = {x = x, y = y}
 	end,
 	draw = function(self)
-		lg.setColor(1,0,1,1)
-		lg.rectangle("fill", self.x, self.y, 16, 16)
+		lg.setColor(1,1,1,1)
+		--lg.rectangle("fill", self.x, self.y, 16, 16)
+		self.sprite:draw(self.x + 8, self.y, 0, 1, 1, 12, 16)
 		if self.attacking then
 			lg.setColor(self.tBox.r, self.tBox.g, self.tBox.b, self.tBox.a)
 			lg.	rectangle("fill", self.tBox.x + self.x, self.tBox.y + self.y, 16, 16)
@@ -56,6 +59,21 @@ function Brawler:update(dt)
 		self:normalize()
 		self.x, self.y = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 	end
+	if self.dx == 0 and self.dy == 0 then
+		self.sprite:pause()
+	else
+		if math.abs(self.dx) > math.abs(self.dy) then
+			if self.dx > 0 then self.sprite:setTag("walk_R")
+			elseif self.dx < 0 then self.sprite:setTag("walk_L")
+			end
+		elseif math.abs(self.dx) < math.abs(self.dy) then
+			if self.dy > 0 then self.sprite:setTag("walk_D")
+			elseif self.dy < 0 then self.sprite:setTag("walk_U")
+			end
+		end
+		self.sprite:play()
+	end
+	self.sprite:update(dt)
 end
 
 function Brawler:attack(dt)

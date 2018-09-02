@@ -109,8 +109,8 @@ end
 function htp:draw()
 	lg.setColor(1,1,1,1)
 	lg.setFont(subtitleFont)
-	lg.print("WASD.........................................Move", W/2 - 300, H/2 - 50)
-	lg.print("Right Click on enemy........Swap places", W/2 - 300, H/2 + 50)
+	lg.print("WASD..................................................Move", W/2 - 300, H/2 - 50)
+	lg.print("Left Click on enemy or bullet......Swap places", W/2 - 300, H/2 + 50)
 	lg.print("Press Enter to go back to menu", W/2 - 250, H/2 + 200)
 end
 

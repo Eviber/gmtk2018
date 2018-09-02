@@ -1,0 +1,92 @@
+{ "frames": [
+   {
+    "filename": "enemy 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 1.ase",
+    "frame": { "x": 24, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 2.ase",
+    "frame": { "x": 48, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 3.ase",
+    "frame": { "x": 72, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 4.ase",
+    "frame": { "x": 96, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 5.ase",
+    "frame": { "x": 120, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 6.ase",
+    "frame": { "x": 144, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   },
+   {
+    "filename": "enemy 7.ase",
+    "frame": { "x": 168, "y": 0, "w": 24, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 32 },
+    "sourceSize": { "w": 24, "h": 32 },
+    "duration": 256
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.1.9-dev",
+  "image": "D:\\Lexou\\Projects\\gmtk2018\\assets\\enemy.png",
+  "format": "RGBA8888",
+  "size": { "w": 192, "h": 32 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "walk_D", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "walk_L", "from": 2, "to": 3, "direction": "forward" },
+   { "name": "walk_R", "from": 4, "to": 5, "direction": "forward" },
+   { "name": "walk_U", "from": 6, "to": 7, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ]
+ }
+}
