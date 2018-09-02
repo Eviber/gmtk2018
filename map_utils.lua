@@ -29,8 +29,12 @@ require "collide"
 map_utils = {}
 
 tileset = {
-	wall = lg.newImage("assets/tmp/tmp_wall.png"),
-	floor = lg.newImage("assets/tmp/tmp_floor.png"),
+	wall1 = lg.newImage("assets/tile_wall_1.png"),
+	wall2 = lg.newImage("assets/tile_wall_2.png"),
+	floor1 = lg.newImage("assets/tile_floor_1.png"),
+	floor2 = lg.newImage("assets/tile_floor_2.png"),
+  roof1 = lg.newImage("assets/tile_roof_1.png"),
+  roof2 = lg.newImage("assets/tile_roof_1.png"),
   err = lg.newImage("assets/tmp/tmp_error.png")
 }
 
@@ -41,7 +45,7 @@ Tile = Class{
 		self.pos = Vector.new((x - 1) * self.tilesize, (y - 1) * self.tilesize)
     self.enumstr = enumstr
 		self.img = tile_img
-    if enumstr == "wall" then
+    if enumstr == "wall" or enumstr == "roof" then
       coll:add(self, self.pos.x, self.pos.y, self.tilesize, self.tilesize)
     elseif enumstr == "err" then
       coll:add(self, self.pos.x, self.pos.y, self.tilesize, self.tilesize)
@@ -73,15 +77,42 @@ end
 function map_utils.strls_to_map(w, h, strls_map)
   print("map width "..w..", height "..h)
 	local tilemap = {}
+  local FLOOR_ITER = 0
+  local WALL_ITER = 0
+  local ROOF_ITER = 0
 	for y, tiles in pairs(strls_map) do
     local tileline = {}
 		for x = 1, #tiles do
 			local tilechar = tiles:sub(x,x)
       local curtile
+      local img
 			if tilechar == '-' or tilechar == 'B' or tilechar == 'S' or tilechar == 'P' then
-        curtile = Tile(x, y, "floor", tileset.floor)
+        if FLOOR_ITER == 39 or FLOOR_ITER == 122 then
+          img = tileset.floor2
+          FLOOR_ITER = FLOOR_ITER + 1
+        else
+          img = tileset.floor1
+          FLOOR_ITER = FLOOR_ITER + 1
+        end
+        if FLOOR_ITER == 233 then
+          FLOOR_ITER = 0
+        end
+        curtile = Tile(x, y, "floor", img)
 			elseif tilechar == "X" then
-				curtile = Tile(x, y, "wall", tileset.wall)
+        img = tileset.roof2
+				curtile = Tile(x, y, "roof", img)
+      elseif tilechar == "Y" then
+        if WALL_ITER == 5 or WALL_ITER == 8 then
+          img = tileset.wall1
+          WALL_ITER = WALL_ITER + 1
+        else
+          img = tileset.wall2
+          WALL_ITER = WALL_ITER + 1
+        end
+        if WALL_ITER == 13 then
+          WALL_ITER = 0
+        end
+				curtile = Tile(x, y, "wall", img)
       else
         curtile = Tile(x, y, "err", tileset.err)
 			end
