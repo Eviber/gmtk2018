@@ -42,7 +42,7 @@ Tile = Class{
     if enumstr == "wall" then
       coll:add(self, self.pos.x, self.pos.y, self.tilesize, self.tilesize)
     elseif enumstr == "err" then
-      coll:add(self, self.pos.x + 8, self.pos.y, self.tilesize, self.tilesize)
+      coll:add(self, self.pos.x, self.pos.y, self.tilesize, self.tilesize)
     end
 	end
 }
