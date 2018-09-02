@@ -67,10 +67,19 @@ Bullet = Class{
 	__includes = Projectile,
 	init = function(self, x, y, dx, dy)
 		Projectile.init(self, "Bullet", x, y, dx, dy, 70, 20)
-		--bullet sprite
+		do
+			local norm = math.sqrt(dx^2 + dy^2)
+			local add = 0
+			if dy > 0 then dx = -dx ; add = math.pi end
+			self.theta = math.pi/2 - math.acos(dx/norm) + add
+		end
+		coll:update(self, x, y, 1, 1)
+		self.img = lg.newImage("assets/bullet.png")
 	end,
 	draw = function(self)
-		lg.setColor(1,0,0,1)
-		lg.circle("fill", self.x, self.y, 8)
+		--lg.setColor(1,0,0,1)
+		--lg.circle("fill", self.x, self.y, 8)
+		lg.setColor(1,1,1,1)
+		lg.draw(self.img, self.x, self.y, self.theta, 1, 1, 4, 4)
 	end
 }
