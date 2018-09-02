@@ -4,12 +4,14 @@ local peachy = require "peachy.peachy"
 
 gs.start = {}
 gs.over = {}
+gs.howToPlay = {}
 local items, len
 local timer = 0
 local clickedPlay = false
 
 local start = gs.start
 local over = gs.over
+local htp = gs.howToPlay
 
 local lg = love.graphics
 local isDown = love.keyboard.isDown
@@ -32,6 +34,8 @@ function gs.start:mousepressed(x, y, button, istouch, presses)
 			fakePlayer:play()
 			--Gamestate.switch(gs.game)
 			clickedPlay = true
+		elseif items[1] == 2 then
+			Gamestate.switch(gs.howToPlay)
 		end
 	end
 end
@@ -106,4 +110,5 @@ function over:draw()
 	lg.setFont(startFont)
 	lg.setColor(1,0,0,1)
 	lg.print("GAME OVER", W/2 - 130, H/2 - 50)
+	love.mouse.setVisible(true)
 end

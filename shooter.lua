@@ -25,6 +25,8 @@ RifleShooter = Class{
 			if len == 0 then
 				self:attack()
 				self.cd = 2 + self.cd
+			else
+				self.cd = 0.7
 			end
 		end
 		if self.health <= 0 then
