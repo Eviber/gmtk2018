@@ -1,7 +1,7 @@
 RifleShooter = Class{
 	__includes = Entity,
 	init = function(self, x, y)
-		Entity.init(self, x, y, 20, 50)
+		Entity.init(self, "Shooter", x, y, 20, 50)
 		self.cd = 3
 	end,
 	attack = function(self)
@@ -44,9 +44,6 @@ Projectile = Class{
 		self.x, self.y, cols, len = coll:move(self, self.x + self.dx * dt, self.y + self.dy * dt, filter)
 		if len > 0 then
 			self.health = 0
-      print(cols)
-      print(cols[1])
-      print(cols[1].other)
       if cols[1].other.health then
         cols[1].other:hit(self.damage)
       end

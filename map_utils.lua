@@ -88,9 +88,9 @@ function map_utils.strls_to_map(w, h, strls_map)
       table.insert(tileline, curtile)
       pixx = (x - 1) * TILESIZE
       pixy = (y - 1) * TILESIZE
-      if tilechar ~= '-' and tilechar ~= 'X' then
-        print("Char: "..tilechar..", pos: ("..pixx..", "..pixy..")")
-      end
+      --if tilechar ~= '-' and tilechar ~= 'X' then
+      --  print("Char: "..tilechar..", pos: ("..pixx..", "..pixy..")")
+      --end
       if tilechar == 'P' then
         player = Player(pixx, pixy)
       elseif tilechar == 'B' then

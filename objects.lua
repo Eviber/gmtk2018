@@ -5,7 +5,8 @@ require "collide"
 EntitiesList = {}
 
 Entity = Class{
-	init = function(self, x, y, speed, health)
+	init = function(self, id_str, x, y, speed, health)
+    self.id_str = id_str
 		self.idx = #EntitiesList + 1
 		self.x = x
 		self.y = y
@@ -53,14 +54,7 @@ require "player"
 
 Box = Class{
 	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 0, 20)
-	end
-}
-
-Wall = Class{
-	__includes = Entity,
-	init = function(self, id, x, y)
-		Entity.init(self, id, x, y, 0, 100)
+	init = function(self, x, y)
+		Entity.init(self, "Box", x, y, 0, 20)
 	end
 }

@@ -3,7 +3,7 @@ require "collide"
 Brawler = Class{
 	__includes = Entity,
 	init = function(self, x, y)
-		Entity.init(self, x, y, 50, 50)
+		Entity.init(self, "Brawler", x, y, 50, 50)
 		self.origx = x
 		self.origy = y
 		self.damage = 20

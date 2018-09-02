@@ -12,7 +12,7 @@ Player = Class{
 	init = function(self, x, y)
 		x = x or W/2
 		y = y or H/2
-		Entity.init(self, x, y)
+		Entity.init(self, "Player", x, y)
 		self.health = 100
 		self.speed = 100
 		self.dx = 0
