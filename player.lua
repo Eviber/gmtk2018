@@ -39,8 +39,8 @@ Player = Class{
 	draw = function(self)
 		lg.setColor(1,1,1,1)
 		self.sprite:draw(self.x, self.y, 0, self.dir, 1, 12, 16)
-		lg.setColor(0,1,0,1)
-		lg.rectangle("line", coll:getRect(self))
+		--lg.setColor(0,1,0,1)
+		--lg.rectangle("line", coll:getRect(self))
 	end,
   
 	update = function(self, dt)
@@ -75,6 +75,13 @@ function Player:swap(target)
 	target.y = y
 	coll:update(target, x, y)
   self.swap_fx = true
+  if self.angle == 0 then print("error")
+  elseif self.angle == 1 then self.sprite:setTag("walk_D")
+  elseif self.angle == 2 then self.sprite:setTag("walk_DR")
+  elseif self.angle == 3 then self.sprite:setTag("walk_R")
+  elseif self.angle == 4 then self.sprite:setTag("walk_UR")
+  elseif self.angle == 5 then self.sprite:setTag("walk_U")
+  end
 end
 
 function Player:setVel(dt)
