@@ -26,6 +26,7 @@ Player = Class{
 		self.sprite = peachy.new("assets/player.json", love.graphics.newImage("assets/player.png"), "walk_D")
 		self.angle = 1
 		self.dir = 1
+		self.invincible = 0
 		coll:update(self, x, y)
 	end,
 
@@ -36,14 +37,29 @@ Player = Class{
 		self.speed = 100
 	end,
 
+	hit = function(self, damage)
+		if self.invincible <= 0 then
+			self.invincible = 4
+			self.health = self.health - damage
+			return true
+		else
+			return false
+		end
+	end,
+
 	draw = function(self)
-		lg.setColor(1,1,1,1)
+		if self.invincible <= 0 then
+			lg.setColor(1,1,1,1)
+		else
+			lg.setColor(1,1,1,0.3)
+		end
 		self.sprite:draw(self.x, self.y, 0, self.dir, 1, 12, 16)
 		--lg.setColor(0,1,0,1)
 		--lg.rectangle("line", coll:getRect(self))
 	end,
 
 	update = function(self, dt)
+		self.invincible = self.invincible - dt
 		if not self.swapping then
 			self:setVel(dt)
 			self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)

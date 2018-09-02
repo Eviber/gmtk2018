@@ -28,6 +28,7 @@ Entity = Class{
 	end,
 	hit = function(self, damage)
 		self.health = self.health - damage
+		return true
 	end,
 	update = function(self, dt)
 		if self.health <= 0 then

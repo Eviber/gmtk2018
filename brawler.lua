@@ -76,13 +76,14 @@ function Brawler:attack(dt)
 			return "cross"
 		end)
 		for _, item in pairs(items) do
-			item:hit(self.damage)
-			local dx = item.x - self.x
-			local dy = item.y - self.y
-			local norm = math.sqrt(dx^2 + dy^2)
-			local x = item.x + dx / norm * 100
-			local y = item.y + dy / norm * 100
-			item.x, item.y = coll:move(item, x, y, filter)
+			if item:hit(self.damage) then
+				local dx = item.x - self.x
+				local dy = item.y - self.y
+				local norm = math.sqrt(dx^2 + dy^2)
+				local x = item.x + dx / norm * 100
+				local y = item.y + dy / norm * 100
+				item.x, item.y = coll:move(item, x, y, filter)
+			end
 		end
 	end
 end
