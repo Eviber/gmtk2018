@@ -6,6 +6,7 @@ require "objects"
 
 gs = {}
 gs.game = {}
+coll = {}
 require "controls"
 require "startend"
 
