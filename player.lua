@@ -6,7 +6,6 @@ local peachy = require "peachy.peachy"
 lg = love.graphics
 local isDown = love.keyboard.isDown
 local floor = math.floor
-fx_swap = peachy.new("assets/fx_swap.json", lg.newImage("assets/fx_swap.png"), "smoke")
 
 Player = Class{
 	__includes = Entity,
@@ -18,6 +17,9 @@ Player = Class{
 		self.speed = 100
 		self.dx = 0
 		self.dy = 0
+    self.swapping = false
+    self.swap_fx = false
+    self.swap_target = nil
     --self.hitbox_pos = Vector.new(x - 4, y - 12) 
     --self.hitbox_end = Vector.new(self.hitbox_pos.x + 16, self.hitbox_pos.y + 16)
     self.grid_pos = Vector.new(floor(self.x / 16), floor(self.y / 16))
@@ -40,10 +42,11 @@ Player = Class{
 	end,
   
 	update = function(self, dt)
-		self:setVel(dt)
-		self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)
-		self.x = self.x + 8
-    fx_swap:update(dt)
+		if not self.swapping then
+      self:setVel(dt)
+      self.x, self.y = coll:move(self, self.x + self.dx - 8, self.y + self.dy, filter)
+      self.x = self.x + 8
+    end
 	end
 }
 
@@ -64,7 +67,10 @@ function Player:loadSprite()
 	self.dir = 1
 end
 
-
+function Player:swap_prepare(target)
+  self.swap_target = target
+  self.swapping = true
+end
 function Player:swap(target)
 	local x = self.x
 	local y = self.y
@@ -75,8 +81,8 @@ function Player:swap(target)
 	target.x = x
 	target.y = y
 	coll:update(target, x, y)
-	--smoke thingy
-  fx_swap:draw(x, y)
+  self.swap_fx = true
+  self.swap_target = nil
 end
 
 function Player:setVel(dt)

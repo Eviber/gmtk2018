@@ -9,7 +9,7 @@ function gs.game:mousepressed(x, y, button, istouch, presses)
 			closest = entity
 		end
 	end
-	if closest ~= nil then
-		player:swap(closest)
+	if closest ~= nil and not player.swapping and not player.swap_fx then
+		player:swap_prepare(closest)
 	end
 end
