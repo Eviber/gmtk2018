@@ -23,8 +23,10 @@ Entity = Class{
 	normalize = function(self)
 		local dx, dy = self.dx, self.dy
 		local norm = math.sqrt(dx^2 + dy^2)
-		self.dx = dx / norm * self.speed
-		self.dy = dy / norm * self.speed
+		if norm > 0 then
+			self.dx = dx / norm * self.speed
+			self.dy = dy / norm * self.speed
+		end
 	end,
 	hit = function(self, damage)
 		self.health = self.health - damage

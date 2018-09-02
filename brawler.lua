@@ -47,7 +47,7 @@ function Brawler:update(dt)
 		end
 		local dx = self.target.x - self.x
 		local dy = self.target.y - self.y
-		if math.sqrt(dx^2+dy^2) < 64 then
+		if math.sqrt(dx^2+dy^2) < 128 then
 			self.target.x = self.origx
 			self.target.y = self.origy
 		end
