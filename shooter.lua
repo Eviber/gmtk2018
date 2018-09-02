@@ -21,8 +21,11 @@ RifleShooter = Class{
 	update = function(self, dt)
 		self.cd = self.cd - dt
 		if self.cd <= 0 then
-			self:attack()
-			self.cd = 2 + self.cd
+			local items, len = coll:querySegment(self.x + 8, self.y + 8, player.x, player.y, function(item) return not item.health end)
+			if len == 0 then
+				self:attack()
+				self.cd = 2 + self.cd
+			end
 		end
 		if self.health <= 0 then
 			table.remove(EntitiesList, self.idx)
